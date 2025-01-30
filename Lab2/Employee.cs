@@ -19,6 +19,7 @@ namespace Lab2
 
         //public property
         public string Id { get { return id; } }
+        public string Name { get { return name; } }
 
 
         //constructor 

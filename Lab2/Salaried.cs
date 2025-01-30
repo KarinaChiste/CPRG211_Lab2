@@ -22,6 +22,12 @@ namespace Lab2
         public override double CalculatePay()
         {
             return salary;
+
+        }
+
+        public override string ToString() 
+        {
+            return $"Salary Employee: {Name}";
         }
     }
 }

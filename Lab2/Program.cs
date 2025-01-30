@@ -30,13 +30,56 @@ while(!streamReader.EndOfStream)
     }
     else if(partTimeId.Contains(prefix))
     {
-        emp = new Wages(fields[0], fields[1], fields[2], fields[3], long.Parse(fields[4]), fields[5], fields[6], Double.Parse(fields[7]), Double.Parse(fields[8]));
+        emp = new PartTime(fields[0], fields[1], fields[2], fields[3], long.Parse(fields[4]), fields[5], fields[6], Double.Parse(fields[7]), Double.Parse(fields[8]));
     }
     employees.Add(emp);
 }
 
+double totalPay = 0;
+double highestWage = 0;
+string highestWageName = null;
+double lowestSalary = Double.MaxValue;
+string lowestSalaryName = null;
+double salariedEmployees = 0;
+double partTimeEmployees = 0;
+double wageEmployees = 0;
 
 foreach(Employee emp in employees)
 {
-    Console.WriteLine(emp);
+    //Console.WriteLine(emp);
+    totalPay += emp.CalculatePay();
+    
+    if(emp.GetType() == typeof(Wages))
+    {
+        if (emp.CalculatePay() > highestWage)
+        {
+            highestWage = emp.CalculatePay();
+            highestWageName = emp.Name;
+        }
+        wageEmployees++;
+    }
+    if (emp.GetType() == typeof(Salaried))
+    {
+        if (emp.CalculatePay() < lowestSalary)
+        {
+            lowestSalary = emp.CalculatePay();
+            lowestSalaryName = emp.Name;
+        }
+        salariedEmployees++;
+    }
+    if (emp.GetType() == typeof(PartTime))
+    {
+        partTimeEmployees++;
+    }
+
 }
+
+double averagePay = totalPay / employees.Count;
+Console.WriteLine($"Average Pay: {averagePay.ToString("c")}");
+
+Console.WriteLine($"{highestWageName} is the weekly top earning Wage Employee making {highestWage.ToString("c")}");
+Console.WriteLine($"{lowestSalaryName} has the lowest salary at {lowestSalary.ToString("c")}");
+
+Console.WriteLine($"Part Time Employee Percentage: {((int)(partTimeEmployees/ employees.Count * 100))}%");
+Console.WriteLine($"Salaried Employee Percentage: {((int)(salariedEmployees / employees.Count *100))}%");
+Console.WriteLine($"Wages Employee Percentage: {((int)(wageEmployees / employees.Count * 100))}%");
