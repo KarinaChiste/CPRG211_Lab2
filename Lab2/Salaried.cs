@@ -19,5 +19,9 @@ namespace Lab2
         {
             this.salary = salary;
         }
+        public override double CalculatePay()
+        {
+            return salary;
+        }
     }
 }

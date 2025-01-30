@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,5 +23,20 @@ namespace Lab2
             this.rate = rate;
             this.hours = hours;
         }
+
+        public override double CalculatePay()
+        {
+            double overtime = 0;
+            if (hours > 40)
+            {
+                double overtimeHours = hours - 40;
+                overtime = rate * overtimeHours * 1.5;
+            }
+            return rate* hours + overtime;
+        }
+               
+        }
+           
+        
     }
-}
+

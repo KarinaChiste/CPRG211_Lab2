@@ -35,5 +35,11 @@ namespace Lab2
 
         }
 
+        public override string ToString()
+        {
+            return $"ID: {id} Name:{name}";
+        }
+
+        public virtual double CalculatePay() {  return 0 ; }
     }
 }
